@@ -402,12 +402,19 @@ def process_scenario_outline(scenario):
     variables = set(variables)
 
     # per example a test case
+    # for example in scenario['examples']:
+    #     if example['name']:
+    #         test_case_name = scenario['name'] + ': ' + example['name']
+    #     else:
+    #         test_case_name = scenario['name'] + ' example line ' + str(example['location']['line'])
+
     for example in scenario['examples']:
         if example['name']:
             test_case_name = scenario['name'] + ': ' + example['name']
         else:
-            test_case_name = scenario['name'] + ' example line ' + str(example['location']['line'])
-
+             # test_case_name = scenario['name'] + ' example line ' + str(example['location']['line'])
+             test_case_name=scenario['name']
+             
         test_cases_lines.append(test_case_name)
 
         if 'description' in example:

@@ -5,17 +5,17 @@ with open("README.md", "r") as fh:
 
 setup(
     name="gherkin2robotframework",
-    version="0.3",
+    version="0.4",
     packages=["gherkin2robotframework"],
     install_requires=["gherkin3==3.1.2", "pyyaml"],
 
-    author="Maurice Koster",
-    author_email="maurice@mauricekoster.com",
+    author="Fábio Silva",
+    author_email="fabio.luis.silva@jeronimo-martins.com",
     description="Translate Gherkin feature files into RobotFramework tests",
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords="gherkin robotframework",
-    url="https://github.com/mauricekoster/gherkin2robotframework/",
+    url="https://github.com/fabioluissilva/gherkin2robotframework/",
 
     classifiers=[
         "Programming Language :: Python :: 3",
