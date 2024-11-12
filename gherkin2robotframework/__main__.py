@@ -25,6 +25,7 @@ from datetime import datetime
 from pprint import pprint
 
 from .translation import get_language, tr, set_language
+import json
 
 # - Globals -------------------------------------------------------------------
 
@@ -154,7 +155,7 @@ def _read_keywords_from_resource(fn):
         if in_keywords:
             if not line.startswith(' ') and not line.startswith('\t'):
                 keyword = line.strip()
-                kw = re.sub(r'\$\{[0-9a-zA-Z_]+\}', '(.*)', keyword)
+                kw = re.sub('\$\{[0-9a-zA-Z_]+\}', '(.*)', keyword)
 
                 keywords.append((keyword,kw))
         else:
@@ -277,12 +278,17 @@ def process_background(background):
 
 
 def process_scenario(scenario):
-    if scenario['keyword'] in ['Scenario'] + tr('scenario').split(','):
+    if scenario['keyword'] in ['Scenario'] + tr('scenario').split(',') and ('examples' not in scenario or len(scenario['examples']) == 0):
+        print("Found Plain")
+#        print(json.dumps(scenario, indent=4))
         process_scenario_plain(scenario)
-    elif scenario['keyword'] in ['Scenario Outline'] + tr('scenariooutline').split(','):
+    elif (scenario['keyword'] in ['Scenario Outline'] + tr('scenariooutline').split(',')) or (scenario['keyword'] in ['Scenario'] + tr('scenario').split(',') and 'examples' in scenario and len(scenario['examples']) > 0):
+        print("Found Outline")
+#        print(json.dumps(scenario, indent=4))
         process_scenario_outline(scenario)
     else:
         raise RuntimeError(f"Unimplemented scenario keyword: {scenario['keyword']}")
+
 
 def process_datatable_rows(datatable):
     ret = []
@@ -429,19 +435,13 @@ def process_scenario_outline(scenario):
     variables = set(variables)
 
     # per example a test case
-    # for example in scenario['examples']:
-    #     if example['name']:
-    #         test_case_name = scenario['name'] + ': ' + example['name']
-    #     else:
-    #         test_case_name = scenario['name'] + ' example line ' + str(example['location']['line'])
-
     for example in scenario['examples']:
         if example['name']:
             test_case_name = scenario['name'] + ': ' + example['name']
         else:
             test_case_name = scenario['name'] + ' example line ' + str(example['location']['line'])
 
-        # test_cases_lines.append(test_case_name)
+        #test_cases_lines.append(test_case_name)
 
         if 'description' in example:
             _add_test_case_documentation(example['description'])
