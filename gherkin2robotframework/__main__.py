@@ -562,5 +562,5 @@ def main():
 
 
 if __name__ == '__main__':
-    print("gherkin2robotframework version 0.1")
+    print("gherkin2robotframework version 0.42")
     main()
