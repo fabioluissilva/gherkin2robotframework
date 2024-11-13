@@ -355,6 +355,7 @@ def process_datatable(output, datatable):
 
 def add_step(output, step):
     text = step['text'].replace('<', '${').replace('>', '}').replace('"', FIELD_SEP)
+    print (f"Step: {text}")
     if step['keyword'] == '* ':
         keyword = text
         resource_keyword = text
