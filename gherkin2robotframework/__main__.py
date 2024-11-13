@@ -354,8 +354,7 @@ def process_datatable(output, datatable):
 
 
 def add_step(output, step):
-    text = step['text'].replace('<', '${').replace('>', '}')
-    print (f"Step: {text}")
+    text = step['text'].replace('<', '${').replace('>', '}').replace('"', FIELD_SEP)    
     if step['keyword'] == '* ':
         keyword = text
         resource_keyword = text
@@ -562,5 +561,5 @@ def main():
 
 
 if __name__ == '__main__':
-    print("gherkin2robotframework version 0.42")
+    print("gherkin2robotframework version 0.43")
     main()
