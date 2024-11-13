@@ -354,7 +354,7 @@ def process_datatable(output, datatable):
 
 
 def add_step(output, step):
-    text = step['text'].replace('<', '${').replace('>', '}').replace('"', FIELD_SEP)    
+    text = step['text'].replace('<', FIELD_SEP+'${').replace('>', '}'+FIELD_SEP).replace('"', FIELD_SEP)    
     if step['keyword'] == '* ':
         keyword = text
         resource_keyword = text
@@ -441,7 +441,7 @@ def process_scenario_outline(scenario):
         else:
             test_case_name = scenario['name'] + ' example line ' + str(example['location']['line'])
 
-        #test_cases_lines.append(test_case_name)
+        test_cases_lines.append(test_case_name)
 
         if 'description' in example:
             _add_test_case_documentation(example['description'])
@@ -561,5 +561,5 @@ def main():
 
 
 if __name__ == '__main__':
-    print("gherkin2robotframework version 0.43")
+    print("gherkin2robotframework version 0.44")
     main()
