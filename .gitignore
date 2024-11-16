@@ -65,3 +65,5 @@ report.html
 .idea
 .vscode/
 .python-version
+.venv/
+venv/
