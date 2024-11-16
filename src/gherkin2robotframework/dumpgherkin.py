@@ -21,4 +21,5 @@ def main():
 
 
 if __name__ == '__main__':
+    print("gherkin2robotframework version 0.42_FS")
     main()
